@@ -29,15 +29,7 @@ class Student(models.Model):
     def __str__(self):
         return self.name
 
-# Teacher table (without extending User)
-class Teacher(models.Model):
-    name = models.CharField(max_length=64)
-    email = models.EmailField(max_length=64)
-    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
-    date_of_joining = models.DateField()
 
-    def __str__(self):
-        return self.name
 
 # Staff table (without extending User)
 class Staff(models.Model):
@@ -68,9 +60,24 @@ class Course(models.Model):
 
     course_code = models.CharField(max_length=64)
     course_name = models.CharField(max_length=64)
+    credit = models.IntegerField(null=False, blank=False, default=None)
+    prerequisites = models.CharField(max_length=64, default=None, blank=True)
     semester = models.IntegerField(choices=SEMESTER_CHOICES, default=None)
     year = models.IntegerField(choices=YEAR_CHOICES, default=None)
     dept_name = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.course_name
+    
+
+# Teacher table (without extending User)
+class Teacher(models.Model):
+    name = models.CharField(max_length=64)
+    email = models.EmailField(max_length=64)
+    course_teaches = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
+    department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
+    date_of_joining = models.DateField()
+
+
+    def __str__(self):
+        return self.name
