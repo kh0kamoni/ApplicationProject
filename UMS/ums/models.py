@@ -48,4 +48,11 @@ class Staff(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+# Course table
+class Course(models.Model):
+    course_code = models.CharField(max_length=64)
+    course_name = models.CharField(max_length=64)
+    dept_name = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
 
