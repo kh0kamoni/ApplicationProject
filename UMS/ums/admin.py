@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import Department, Hall, Student, Teacher, Staff
 
-# Register your models here.
+# Register the models in the admin panel
+admin.site.register(Department)
+admin.site.register(Hall)
+admin.site.register(Student)
+admin.site.register(Teacher)
+admin.site.register(Staff)
