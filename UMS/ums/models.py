@@ -35,7 +35,6 @@ class Student(models.Model):
 class Staff(models.Model):
     name = models.CharField(max_length=64)
     email = models.EmailField(max_length=64)
-    hall = models.ForeignKey(Hall, on_delete=models.SET_NULL, null=True)
     position = models.CharField(max_length=64)
 
     def __str__(self):
@@ -61,7 +60,7 @@ class Course(models.Model):
     course_code = models.CharField(max_length=64)
     course_name = models.CharField(max_length=64)
     credit = models.IntegerField(null=False, blank=False, default=None)
-    prerequisites = models.CharField(max_length=64, default=None, blank=True)
+    prerequisites = models.CharField(max_length=64, blank=True, default='')
     semester = models.IntegerField(choices=SEMESTER_CHOICES, default=None)
     year = models.IntegerField(choices=YEAR_CHOICES, default=None)
     dept_name = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
@@ -72,7 +71,14 @@ class Course(models.Model):
 
 # Teacher table (without extending User)
 class Teacher(models.Model):
+    DESIGNATION = [
+        (1, "Lectuerer"),
+        (2, "Assistant Professor"),
+        (3, "Associate Professor"),
+        (4, "Professor"),
+    ]
     name = models.CharField(max_length=64)
+    designation = models.IntegerField(choices=DESIGNATION, default=1)
     email = models.EmailField(max_length=64)
     course_teaches = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
