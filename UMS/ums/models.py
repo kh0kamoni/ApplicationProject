@@ -52,7 +52,25 @@ class Staff(models.Model):
 
 # Course table
 class Course(models.Model):
+    # List for semester choices (1 and 2)
+    SEMESTER_CHOICES = [
+        (1, 'Semester 1'),
+        (2, 'Semester 2'),
+    ]
+
+    # List for year choices (1 to 4)
+    YEAR_CHOICES = [
+        (1, 'Year 1'),
+        (2, 'Year 2'),
+        (3, 'Year 3'),
+        (4, 'Year 4'),
+    ]
+
     course_code = models.CharField(max_length=64)
     course_name = models.CharField(max_length=64)
+    semester = models.IntegerField(choices=SEMESTER_CHOICES)
+    year = models.IntegerField(choices=YEAR_CHOICES)
     dept_name = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
 
+    def __str__(self):
+        return self.course_name

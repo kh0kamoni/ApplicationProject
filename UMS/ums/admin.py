@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Department, Hall, Student, Teacher, Staff
+from .models import Department, Hall, Student, Teacher, Staff, Course
 
 # Register the models in the admin panel
 admin.site.register(Department)
@@ -7,3 +7,4 @@ admin.site.register(Hall)
 admin.site.register(Student)
 admin.site.register(Teacher)
 admin.site.register(Staff)
+admin.site.register(Course)
