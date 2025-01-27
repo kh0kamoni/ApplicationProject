@@ -68,8 +68,8 @@ class Course(models.Model):
 
     course_code = models.CharField(max_length=64)
     course_name = models.CharField(max_length=64)
-    semester = models.IntegerField(choices=SEMESTER_CHOICES)
-    year = models.IntegerField(choices=YEAR_CHOICES)
+    semester = models.IntegerField(choices=SEMESTER_CHOICES, default=None)
+    year = models.IntegerField(choices=YEAR_CHOICES, default=None)
     dept_name = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
