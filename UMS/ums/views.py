@@ -94,44 +94,44 @@ def student_login(request):
             return render(request, 'ums/student_login.html', {'error': 'Invalid credentials or not a student account.'})
     return render(request, 'ums/student_login.html')
 
-# # Teacher Login View
-# def teacher_login(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None and hasattr(user, 'teacher'):
-#             login(request, user)
-#             return redirect('teacher_dashboard')
-#         else:
-#             return render(request, 'teacher_login.html', {'error': 'Invalid credentials or not a teacher account.'})
-#     return render(request, 'teacher_login.html')
+# Teacher Login View
+def teacher_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None and hasattr(user, 'teacher'):
+            login(request, user)
+            return redirect('teacher_dashboard')
+        else:
+            return render(request, 'ums/teacher_login.html', {'error': 'Invalid credentials or not a teacher account.'})
+    return render(request, 'ums/teacher_login.html')
 
-# # Staff Login View
-# def staff_login(request):
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None and hasattr(user, 'staff'):
-#             login(request, user)
-#             return redirect('staff_dashboard')
-#         else:
-#             return render(request, 'staff_login.html', {'error': 'Invalid credentials or not a staff account.'})
-#     return render(request, 'staff_login.html')
+# Staff Login View
+def staff_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None and hasattr(user, 'staff'):
+            login(request, user)
+            return redirect('staff_dashboard')
+        else:
+            return render(request, 'staff_login.html', {'error': 'Invalid credentials or not a staff account.'})
+    return render(request, 'ums/staff_login.html')
 
 # Dashboard Views
 @login_required
 def student_dashboard(request):
     return render(request, 'ums/student_dashboard.html')
 
-# @login_required
-# def teacher_dashboard(request):
-#     return render(request, 'teacher_dashboard.html')
+@login_required
+def teacher_dashboard(request):
+    return render(request, 'ums/teacher_dashboard.html')
 
-# @login_required
-# def staff_dashboard(request):
-#     return render(request, 'staff_dashboard.html')
+@login_required
+def staff_dashboard(request):
+    return render(request, 'ums/staff_dashboard.html')
 
 
 
@@ -145,10 +145,10 @@ def student_logout(request):
     logout(request)
     return redirect('student_login')
 
-# def teacher_logout(request):
-#     logout(request)
-#     return redirect('teacher_login')
+def teacher_logout(request):
+    logout(request)
+    return redirect('teacher_login')
 
-# def staff_logout(request):
-#     logout(request)
-#     return redirect('staff_login')
+def staff_logout(request):
+    logout(request)
+    return redirect('staff_login')
