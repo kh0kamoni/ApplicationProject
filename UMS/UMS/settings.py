@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     "ums",
 ]
 
+
+# AUTH_USER_MODEL = 'ums.User'
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

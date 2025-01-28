@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Department table
 class Department(models.Model):
@@ -15,9 +16,11 @@ class Hall(models.Model):
     def __str__(self):
         return self.name
 
+
+
 # Student table
 class Student(models.Model):
-    student_id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=1)
     name = models.CharField(max_length=64)
     email = models.EmailField(max_length=64)
     dept_name = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
@@ -31,16 +34,15 @@ class Student(models.Model):
 
 
 
-# Staff table (without extending User)
+# Staff table
 class Staff(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=1)
     name = models.CharField(max_length=64)
     email = models.EmailField(max_length=64)
     position = models.CharField(max_length=64)
 
     def __str__(self):
         return self.name
-    
-
 # Course table
 class Course(models.Model):
     # List for semester choices (1 and 2)
@@ -69,10 +71,11 @@ class Course(models.Model):
         return self.course_name
     
 
-# Teacher table (without extending User)
+# Teacher table
 class Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=1)
     DESIGNATION = [
-        (1, "Lectuerer"),
+        (1, "Lecturer"),
         (2, "Assistant Professor"),
         (3, "Associate Professor"),
         (4, "Professor"),
@@ -83,7 +86,6 @@ class Teacher(models.Model):
     course_teaches = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True)
     date_of_joining = models.DateField()
-
 
     def __str__(self):
         return self.name
